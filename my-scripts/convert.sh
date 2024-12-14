@@ -17,10 +17,10 @@ while true; do
 	    base=$(basename "$file")	# Extract file name with extension
 	    name="${base%.*}"	# Remove extension
 	    ext="${base##*.}"	# Extract extension
-	    new_file="${dir}/subbed_${name}.${ext}"
-	    ffmpeg -i $new_file -vf subtitles=$new_file "$new_file" > /dev/null 2>&1
+	    new_file="${dir}/${name}.mp4"
+	    ffmpeg -i "$file" -codec copy "$new_file" > /dev/null 2>&1
 	    echo
-	    echo 'Burning in subtitles, this may take a while'
+	    echo 'Converting to .mp4, this may take a while'
 	    echo
             break
        	fi
