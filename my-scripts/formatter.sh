@@ -13,7 +13,7 @@ select dev in "${files[@]}"; do
 	fi
 done
 echo
-files=( "/usr/bin/mkfs."* )
+files=( "/usr/sbin/mkfs."* )
 PS3='Select filesystem, or 0 to exit: '
 select fs in "${files[@]}"; do
     if [[ $REPLY == "0" ]]; then
