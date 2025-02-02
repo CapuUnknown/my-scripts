@@ -25,4 +25,4 @@ select fs in "${files[@]}"; do
         break
     fi
 done
-$fs $dev
+$fs "$dev"

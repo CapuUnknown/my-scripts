@@ -18,11 +18,11 @@ select device in "${files[@]}"; do
     if [[ $REPLY == "0" ]]; then
         echo 'Bye!' >&2
         exit
-    elif [[ -z $device ]]; then
+    elif [[ -z "$device" ]]; then
         echo 'Invalid choice, try again' >&2
     else
         break
     fi
 done
 echo
-cat $image > $device
+cat "$image" > "$device"

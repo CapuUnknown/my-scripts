@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=( "$HOME/Downloads/convert/ygo/"*.mkv )
+files=( "$HOME/Downloads/convert/"*.mkv )
 if [[ ${#files[@]} -eq 0 ]]; then
 	    echo 'No .mkv files found, in directory' >&2
       exit 1

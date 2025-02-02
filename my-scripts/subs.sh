@@ -23,10 +23,10 @@ while true; do
 
       mv "$file" "$renamed"
       
-      read -p 'Select bitrate (0-51, 23 for Standard)' crf
+      read  -p 'Select bitrate (0-51, 23 for Standard)' crf
 
       ffmpeg -i "$renamed" -vf subtitles="$renamed" "$mkv_file" > /dev/null 2>&1
-      ffmpeg -i "$mkv_file" -c:v libx264 -crf $crf -preset slow -c:a aac -b:a 300k "$mp4_file" > /dev/null 2>&1
+      ffmpeg -i "$mkv_file" -c:v libx264 -crf "$crf" -preset slow -c:a aac -b:a 300k "$mp4_file" > /dev/null 2>&1
       
       echo 'Succesfully burned in subtitles'
       
