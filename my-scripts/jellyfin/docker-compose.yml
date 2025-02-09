@@ -1,0 +1,17 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
+      - WEBSOCKET_ENABLED=true
+    volumes:
+      - /home/capu/shared/docker/jellyfin/config:/config
+      - /home/capu/shared/docker/jellyfin/data/shows:/data/shows
+      - /home/capu/shared/docker/jellyfin/data/movies:/data/movies
+    ports:
+      - 8096:8096
+    restart: unless-stopped

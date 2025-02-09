@@ -1,0 +1,12 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    env_file:
+      - .env
+    volumes:
+      - ./data:/data
+      - ./certs:/certs
+    ports:
+      - "444:443"
+    restart: unless-stopped
