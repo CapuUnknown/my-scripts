@@ -1,0 +1,19 @@
+services:
+  obsidian:
+    image: lscr.io/linuxserver/obsidian:latest
+    container_name: obsidian
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - /home/capu/shared/docker/obsidian/config:/config
+    ports:
+      - 3006:3000
+      - 3007:3001
+    devices:
+      - /dev/dri:/dev/dri #optional
+    shm_size: "1gb"
+    restart: unless-stopped
