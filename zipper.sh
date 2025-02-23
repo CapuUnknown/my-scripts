@@ -1,7 +1,7 @@
 #!/bin/bash
 
+# TODO:: switch case(?)
 read -p "Zip or Unzip: " choice
-#switch case
 
 main() {
   ADD=""
@@ -10,8 +10,8 @@ main() {
   while true; do
     select file in "${files[@]}"; do
       if [[ $REPLY == "0" ]]; then
-        read -p "Select archive name: " zip
-        7z a $zip $ADD > /dev/null 2>&1
+        read -pr "Select archive name: " zip
+        7z a "$zip" "$ADD" >/dev/null 2>&1
         echo "Successfully created archive: $zip.7z"
         exit 0
 
@@ -23,7 +23,7 @@ main() {
 
       else
         add_to_file "$file"
-        echo $ADD
+        echo "$ADD"
       fi
     done
   done
