@@ -16,11 +16,17 @@ while [[ "$files" != *".mkv" ]]; do
   fi
 done
 
-# while [[ "$crf" != [0..51] ]]; do
-crf=$(zenity \
-  --entry \
-  --text="Select bitrate (0-51, 23 for standard)")
-# done
+while [[ "$crf" == "" || "$crf" -lt 0 || "$crf" -gt 51 ]]; do
+  crf=$(zenity \
+    --entry \
+    --text="Select bitrate (0-51)")
+  if [[ "$crf" == "" ]]; then
+    zenity \
+      --info \
+      --text="Setting bitrate to 23"
+    crf="23"
+  fi
+done
 
 dir=$(dirname "$files")
 base=$(basename "$files")
