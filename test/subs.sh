@@ -1,11 +1,11 @@
 #!/bin/bash
-while true;do
+while true; do
   while [[ "$files" != *".mkv" ]]; do
     files=$(zenity \
       --file-selection \
       --filename="$HOME/Downloads/convert/" \
       --file-filter=*".mkv")
-  
+
     if [[ "$files" == "" ]]; then
       exit
     fi
@@ -16,7 +16,7 @@ while true;do
       continue
     fi
   done
-  
+
   while [[ "$crf" == "" || "$crf" -lt 0 || "$crf" -gt 51 ]]; do
     crf=$(zenity \
       --entry \
@@ -27,27 +27,22 @@ while true;do
         --text="Setting bitrate to 23"
       crf="23"
     fi
-    done
-  
+  done
+
   dir=$(dirname "$files")
   base=$(basename "$files")
   name="${base%.*}"
   sub="${dir}/subbed_${name}"
   mkv="${sub}.mkv"
   mp4="${sub}.mp4"
-  
-  # printf "base: \t%s $base \n"
-  # echo -e "$(printf base:'\t')" "$base"
-  # echo -e "$(printf name:'\t')" "$name"
-  # echo -e "$(printf files:'\t')" "$files"
-  # echo -e "$(printf sub:'\t')" "$sub"
-  # echo -e "$(printf mkv:'\t')" "$mkv"
-  # echo -e "$(printf mp4:'\t')" "$mp4"
-  # echo "$crf"
-  # echo "$temp"
+  temp="${dir}/temp.mkv"
+  mv "$files" "$temp"
 
-  ffmpeg -i "$files" -vf subtitles="$files" "$mkv" >/dev/null 2>&1
+  ffmpeg -i "$temp" -vf subtitles="$temp" "$mkv" >/dev/null 2>&1
   ffmpeg -i "$mkv" -c:v libx264 -crf "$crf" -preset slow -c:a aac -b:a 300k "$mp4" >/dev/null 2>&1
 
-  rm "$files" "$mkv" 
+  rm "$temp" "$mkv"
+
+  crf=""
+  files=""
 done
