@@ -38,6 +38,8 @@ while true; do
   temp="${dir}/temp.mkv"
   mv "$files" "$temp"
 
+  # TODO:Progress Bar
+
   ffmpeg -i "$temp" -vf subtitles="$temp" "$mkv" >/dev/null 2>&1
   ffmpeg -i "$mkv" -c:v libx264 -crf "$crf" -preset slow -c:a aac -b:a 300k "$mp4" >/dev/null 2>&1
 
@@ -45,4 +47,12 @@ while true; do
 
   crf=""
   files=""
+
+  if (zenity \
+    --question \
+    --text="Do you want to continue?"); then
+    continue
+  else
+    exit
+  fi
 done
