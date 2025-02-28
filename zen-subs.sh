@@ -39,6 +39,17 @@ while true; do
   mv "$files" "$temp"
 
   # TODO:Progress Bar
+  #
+  # zenity \
+  # --progress \
+  # --test="Burning in subtitles and converting..." \
+  # --percentage=0
+  #
+  # if [  "$?" = -1 ]; then
+  #           zenity \
+  #           --error \
+  #           --test="Burning canceled"
+  # fi
 
   ffmpeg -i "$temp" -vf subtitles="$temp" "$mkv" >/dev/null 2>&1
   ffmpeg -i "$mkv" -c:v libx264 -crf "$crf" -preset slow -c:a aac -b:a 300k "$mp4" >/dev/null 2>&1
