@@ -38,23 +38,35 @@ while true; do
   temp="${dir}/temp.mkv"
   mv "$files" "$temp"
 
-  # TODO:Progress Bar
-  #
-  # zenity \
-  # --progress \
-  # --test="Burning in subtitles and converting..." \
-  # --percentage=0
-  #
-  # if [  "$?" = -1 ]; then
-  #           zenity \
-  #           --error \
-  #           --test="Burning canceled"
-  # fi
+  (
+    echo "10"
+    sleep 1
+    echo "# Ripping subtitles..."
+    ffmpeg -i "$temp" -vf subtitles="$temp" "$mkv" >/dev/null 2>&1
+    echo "50"
+    sleep 0.5
+    echo "Converting to mp4..."
+    ffmpeg -i "$mkv" -c:v libx264 -crf "$crf" -preset slow -c:a aac -b:a 300k "$mp4" >/dev/null 2>&1
+    echo "95"
+    sleep 0.5
+    echo "Removing temporary files..."
+    sleep 1
+    rm "$temp" "$mkv"
+    echo "100"
+    sleep 1
+  ) |
+    zenity \
+      --progress \
+      --title="ffmpeg in progress..." \
+      --text="Creating temporary files..." \
+      --percentage=0
 
-  ffmpeg -i "$temp" -vf subtitles="$temp" "$mkv" >/dev/null 2>&1
-  ffmpeg -i "$mkv" -c:v libx264 -crf "$crf" -preset slow -c:a aac -b:a 300k "$mp4" >/dev/null 2>&1
-
-  rm "$temp" "$mkv"
+  if [ "$?" = -1 ]; then
+    zenity \
+      --error \
+      --test="Burning canceled"
+    exit
+  fi
 
   crf=""
   files=""
