@@ -28,15 +28,13 @@ return {
       -- list of servers for mason to install
       ensure_installed = {
         "bashls",
+        "shfmt",
+        "shellcheck",
+        "jdtls",
+        "basedpyright",
+        "checkstyle",
         "ast_grep",
-        "html",
-        "cssls",
-        "tailwindcss",
         "lua_ls",
-        "graphql",
-        "emmet_ls",
-        "prismals",
-        "pyright",
       },
     })
 
@@ -46,8 +44,10 @@ return {
         "stylua", -- lua formatter
         "isort", -- python formatter
         "black", -- python formatter
-        "pylint",
-        "eslint_d",
+        "ruff",
+        "java-test",
+        "java-debug-adapter",
+        "bash-debug-adapter",
       },
     })
   end,
