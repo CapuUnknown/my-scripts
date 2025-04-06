@@ -41,7 +41,7 @@ while true; do
   (
     echo "10"
     sleep 1
-    echo "# Ripping subtitles..."
+    echo "Ripping subtitles..."
     ffmpeg -i "$temp" -vf subtitles="$temp" "$mkv" >/dev/null 2>&1
     echo "50"
     sleep 0.5
@@ -54,6 +54,7 @@ while true; do
     rm "$temp" "$mkv"
     echo "100"
     sleep 1
+    echo "Done ripping Subtitles"
   ) |
     zenity \
       --progress \
