@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#TODO: make files stop before partition
 files=( "/dev/nvme"*"n"*"p"* "/dev/sd"*[0-9])
 PS3='Select device, or 0 to exit: '
 select dev in "${files[@]}"; do
