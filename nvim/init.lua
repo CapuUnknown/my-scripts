@@ -1,2 +1,3 @@
-require("capu.core")
-require("capu.lazy")
+require('config.options')
+require('config.keybinds')
+require('config.lazy')
